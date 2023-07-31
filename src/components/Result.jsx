@@ -43,12 +43,18 @@ const Result = ({
       <h1>Meeting cost calculator</h1>
       <h2>{meetingTitle}</h2>
       <h3>{meetingStartTime}</h3>
-      <h2>Number of Attendees</h2>
-      <Cost value={participants.length} />
-      <h2>Meeting Duration</h2>
-      <Cost value={meetingDuration} />
-      <h2>Meeting Cost</h2>
-      <Cost value={finalMeetingCost} />
+      <h4>Number of Attendees</h4>
+      <h2>
+        <Cost value={participants.length} />
+      </h2>
+      <h4>Meeting Duration</h4>
+      <h2>
+        <Cost value={meetingDuration} />
+      </h2>
+      <h4>Meeting Cost</h4>
+      <h2>
+        <Cost value={finalMeetingCost} />
+      </h2>
       <button onClick={onClose}>close</button>
     </div>
   );
