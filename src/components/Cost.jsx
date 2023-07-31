@@ -1,5 +1,5 @@
 import React from "react";
 
 export const Cost = ({ value }) => {
-  return <h1>{value}</h1>;
+  return <h5>{value}</h5>;
 };
