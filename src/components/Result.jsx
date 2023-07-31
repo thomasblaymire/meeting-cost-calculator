@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { Cost } from "./Cost";
-
 
 const salaries = {
   "Lead Engineer": 111000,
@@ -11,7 +10,13 @@ const salaries = {
   "Senior Manager, Product Design": 65000,
 };
 
-const Result = ({ participants, meetingTitle, meetingDuration, meetingStartTime, onClose }) => {
+const Result = ({
+  participants,
+  meetingTitle,
+  meetingDuration,
+  meetingStartTime,
+  onClose,
+}) => {
   const [finalMeetingCost, setFinalMeetingCost] = useState(0);
   useEffect(() => {
     const numberOfWorkingDays = 220;
@@ -35,17 +40,16 @@ const Result = ({ participants, meetingTitle, meetingDuration, meetingStartTime,
 
   return (
     <div>
-      <button onClick={onClose}>close</button>
       <h1>Meeting cost calculator</h1>
       <h2>{meetingTitle}</h2>
       <h3>{meetingStartTime}</h3>
       <h2>Number of Attendees</h2>
-        <Cost value={participants.length} />
-        <h2>Meeting Duration</h2>
-        <Cost value={meetingDuration} />
-        <h2>Meeting Cost</h2>
-        <Cost value={finalMeetingCost} />
-
+      <Cost value={participants.length} />
+      <h2>Meeting Duration</h2>
+      <Cost value={meetingDuration} />
+      <h2>Meeting Cost</h2>
+      <Cost value={finalMeetingCost} />
+      <button onClick={onClose}>close</button>
     </div>
   );
 };

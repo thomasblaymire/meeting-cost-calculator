@@ -15,9 +15,9 @@ const employees = {
   "de Sa, Lucas": { role: "Engineer" },
 };
 
-let meetingTitle=''
-let meetingDuration=''
-let meetingStartTime=''
+let meetingTitle = "";
+let meetingDuration = "";
+let meetingStartTime = "";
 function App() {
   const [participants, setParticipants] = useState([]);
   const [csvString, setCsvString] = useState("");
@@ -33,18 +33,18 @@ function App() {
     const formatDate = (field) =>
       parse(field, "MM/dd/yy, h:mm:ss a", new Date());
 
-      parsedCSV.forEach((row) => {
+    parsedCSV.forEach((row) => {
       if (row[1][" Summary"].startsWith("3. In-Meeting Activities")) {
         amIInParticipantsTable = false;
       }
       if (row[1][" Summary"].startsWith("Meeting title")) {
-        meetingTitle = row['field2'];
+        meetingTitle = row["field2"];
       }
       if (row[1][" Summary"].startsWith("Meeting duration")) {
-        meetingDuration = row['field2'];
+        meetingDuration = row["field2"];
       }
       if (row[1][" Summary"].startsWith("Start time")) {
-        meetingStartTime = row['field2'];
+        meetingStartTime = row["field2"];
       }
 
       if (amIInParticipantsTable && canIAddParticipants) {
@@ -72,27 +72,24 @@ function App() {
     parseCSV();
   }, [csvString]);
 
-
   const [file, setFile] = useState();
 
   const fileReader = new FileReader();
 
   const handleOnChange = (e) => {
-      setFile(e.target.files[0]);
+    setFile(e.target.files[0]);
   };
 
   const handleOnSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      if (file) {
-          fileReader.onload = function (event) {
-            setCsvString(event.target.result);
-          };
-      }
+    if (file) {
+      fileReader.onload = function (event) {
+        setCsvString(event.target.result);
+      };
+      fileReader.readAsText(file);
+    }
   };
-
-
-
 
   return (
     <>
@@ -102,20 +99,18 @@ function App() {
           meetingTitle={meetingTitle}
           meetingDuration={meetingDuration}
           meetingStartTime={meetingStartTime}
-          onClose={() => setCsvString('')}
+          onClose={() => setCsvString("")}
         />
       ) : (
         <form onSubmit={handleOnSubmit}>
           <input
-              type={"file"}
-              id={"csvFileInput"}
-              accept={".csv"}
-              onChange={handleOnChange}
+            type={"file"}
+            id={"csvFileInput"}
+            accept={".csv"}
+            onChange={handleOnChange}
           />
 
-          <button type="submit">
-              IMPORT CSV
-          </button>
+          <button type="submit">UPLOAD REPORT</button>
         </form>
       )}
     </>
