@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Cost } from "./components/Cost";
 import * as csv from "csvtojson";
 import differenceInMinutes from "date-fns/differenceInMinutes";
 import parse from "date-fns/parse";
-
 import "./App.css";
+
 const employees = {
   "DiSalvatore, Michele": { role: "Lead Engineer" },
   "Guler, Hus": { role: "Product Designer" },
@@ -15,6 +14,7 @@ const employees = {
   "Uppuluri, Udaya": { role: "Engineer" },
   "de Sa, Lucas": { role: "Engineer" },
 };
+
 const salaries = {
   "Lead Engineer": 111000,
   "Senior Engineer": 90000,
@@ -54,7 +54,6 @@ de Sa, Lucas	7/20/23, 4:30:48 PM	7/20/23, 5:30:11 PM	59m 22s	Lucas.deSa@newday.c
 `;
 
 function App() {
-  const [count, setCount] = useState(0);
   const [participants, setParticipants] = useState([]);
   const [finalMeetingCost, setFinalMeetingCost] = useState(0);
 
@@ -109,39 +108,20 @@ function App() {
       participants.forEach(({ role, minutes }) => {
         meetingCost += (salaries[role] / numberOfWorkingMinutes) * minutes;
       });
-      setFinalMeetingCost(meetingCost);
+
+      const formatter = new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP",
+      });
+
+      setFinalMeetingCost(formatter.format(meetingCost));
     }
   }, [participants]);
 
-  console.log(
-    "participants",
-    participants,
-    "finalMeetingCost",
-    finalMeetingCost
-  );
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>NewDay Meeting Cost Calcualtor</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Cost value={finalMeetingCost} />
     </>
   );
 }
